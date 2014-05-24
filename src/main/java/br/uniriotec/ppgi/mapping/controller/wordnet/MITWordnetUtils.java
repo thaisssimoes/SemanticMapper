@@ -7,18 +7,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
+import br.uniriotec.ppgi.mapping.model.exception.WordnetHelperException;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
-import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.ILexFile;
+import edu.mit.jwi.item.IPointer;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.POS;
-import edu.mit.jwi.item.Pointer;
 import edu.mit.jwi.morph.WordnetStemmer;
 
 public class MITWordnetUtils {
@@ -40,43 +39,106 @@ public class MITWordnetUtils {
 	}
 	
 	
-	public static void listAllNouns(){
+	/**
+	 * List all synsets under a certain Part-Of-Speech tag (POS), not discriminating by posible
+	 * semantic relations it presents. the same as using "listAllSynsets(pos, null, true)"
+	 * 
+	 * @param pos - the part-of-speech
+	 * @return list of all synsets related to the part-of-speech
+	 * @throws IOException
+	 * @throws WordnetHelperException
+	 */
+	public static Map<String, List<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
+		return listAllSynsets(pos, null, false);
+	}
+	
+	
+	/**
+	 * List all synsets under a certain Part-Of-Speech tag (POS), filtering by the presence or absence
+	 * of a certain Pointer.
+	 * 
+	 * OBSERVATION: if no Pointer is informed (null) and noPointerRelation is TRUE, no synset will be returned, 
+	 * since all synsets have at least on pointer relation.
+	 * 
+	 * @param pos
+	 * @param pointer
+	 * @param noPointerRelation
+	 * @return
+	 * @throws IOException
+	 * @throws WordnetHelperException
+	 */
+	public static Map<String, List<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
+		
+		/* *********************************************************************
+		 * Checks if the given POS is NULL. if affirmative raises an exception.
+		 * *********************************************************************/
+		if(pos == null){
+			WordnetHelperException e = new WordnetHelperException("A valid POS value must be informed.");
+			logger.error(e);
+			throw e;
+		}
+		
+		/* *********************************************************************/
+
+		
+		//the resulting object
+		Map<String, List<ISynset>> synsetsPerSupersenses = new TreeMap<String, List<ISynset>>();
+		
 		try {
+			//Retrieve iterator over all Synsets under a certain Part-Of-Speech tag.
 			IDictionary dict = getDictionary();
-			Iterator<ISynset> it = dict.getSynsetIterator(POS.NOUN);
-			
-			Map<String, List<ISynset>> synsetsPerSupersenses = new TreeMap<String, List<ISynset>>();
+			Iterator<ISynset> it = dict.getSynsetIterator(pos);
 			
 			while(it.hasNext()){
 				ISynset synset = it.next();
-				if(synset.getRelatedSynsets(Pointer.HYPONYM).size() == 0){
+				
+				//Determine the number of related synsets considering if a specific
+				//pointer was informed or all pointers should be considered
+				int relatedSynsetsCount = 0;
+				if(pointer == null){
+					relatedSynsetsCount = synset.getRelatedSynsets().size();
+				}else{
+					relatedSynsetsCount = synset.getRelatedSynsets(pointer).size();
+				}
+				
+				/*
+				 * Determine if the method should add to the resulting object a synset that 
+				 * DOES present a relation of the type specified by the pointer or
+				 * if it should only add synsets that DOES NOT present such type of relation.
+				 */
+				boolean searchAssertion;
+				if(noPointerRelation){
+					searchAssertion = relatedSynsetsCount == 0; //Will add every synset that DOES NOT present the relation
+				}else{
+					searchAssertion = relatedSynsetsCount > 0; //Will add every synset that DOES indeed present the relation
+				}
+				
+				//Filter synsets adding them to the resulting object
+				if(searchAssertion){
 					ILexFile supersense = synset.getLexicalFile();
+					
+					//Checks if the resulting map already have the supersense as index
+					//if negative instantiate a new index position for that supersense
 					if(synsetsPerSupersenses.get(supersense.getName()) == null){
 						synsetsPerSupersenses.put(supersense.getName(), new ArrayList<ISynset>());
 					}
+					//adds the synset to its related supersense
 					synsetsPerSupersenses.get(supersense.getName()).add(synset);
 				}
 			}
 			
-			for(Entry<String, List<ISynset>> e : synsetsPerSupersenses.entrySet()){
-				System.out.println("Supersense: "+e.getKey());
-				System.out.println(" -- Total de synsets: "+e.getValue().size());
-				System.out.println(" -- "+e.getValue().get(0));
-				System.out.println(" -- "+e.getValue().get(0).getGloss());
-			}
-			
-			
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
+			throw new IOException("Exception when retrieving nouns and their supersenses.",e);
 		}
+		
+		return synsetsPerSupersenses;
 		
 	}
 	
-	public static void returnAllRelations(IIndexWord idxWord){
-//		idxWord.
-	}
+
+	
+	
 	
 	
 	/**
@@ -92,14 +154,14 @@ public class MITWordnetUtils {
 			// construct the URL to the Wordnet dictionary directory
 			String wnhome = System.getenv("WNHOME");
 			
-			//Verify if the WNHOME environment variable is set and print warn inf not
+			//Verify if the WNHOME environment variable is set and print warn if not
 			if(wnhome.trim().equals("")){
 				logger.error("The WNHOME variable is not set. Set it to indicate your Wordnet home directory.");
 			}
 			
 			String path = wnhome + File.separator + "dict"; 
 			URL url = new URL("file", null, path);
-			// construct the dictionary object and open it
+			// build the dictionary object and open it
 			dict = new Dictionary(url); 
 			dict.open();
 		}
