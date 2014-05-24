@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
 
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
+import br.uniriotec.ppgi.mapping.model.SemanticType;
 import br.uniriotec.ppgi.mapping.model.exception.WordnetHelperException;
 import edu.mit.jwi.item.ILexFile;
 import edu.mit.jwi.item.ISynset;
