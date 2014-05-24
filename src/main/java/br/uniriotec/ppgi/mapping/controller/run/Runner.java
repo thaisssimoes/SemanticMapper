@@ -11,13 +11,15 @@ import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
 import br.uniriotec.ppgi.mapping.model.exception.WordnetHelperException;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.POS;
+import edu.mit.jwi.item.Pointer;
 
 public class Runner {
 	private static Logger logger = Logger.getLogger(Runner.class);
 	
 	public void run(){
 		try{
-			Map<String, List<ISynset>> synsetsPerSupersenses = MITWordnetUtils.listAllSynsets(POS.NOUN);
+			//List only nouns that DOES NOT present a hyponym relation to other nouns
+			Map<String, List<ISynset>> synsetsPerSupersenses = MITWordnetUtils.listAllSynsets(POS.NOUN, Pointer.HYPONYM, true);
 			
 			
 			for(Entry<String, List<ISynset>> e : synsetsPerSupersenses.entrySet()){
@@ -26,6 +28,7 @@ public class Runner {
 				logger.info(" -- "+e.getValue().get(0));
 				logger.info(" -- "+e.getValue().get(0).getGloss());
 			}
+			
 		}catch(WordnetHelperException e){
 			logger.error(e);
 		} catch (IOException e) {
