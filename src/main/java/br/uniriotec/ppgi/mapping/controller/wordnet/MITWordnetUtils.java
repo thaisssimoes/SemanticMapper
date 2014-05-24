@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -48,7 +47,7 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<String, List<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
+	public static Map<String, ArrayList<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
 		return listAllSynsets(pos, null, false);
 	}
 	
@@ -67,7 +66,7 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<String, List<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
+	public static Map<String, ArrayList<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
 		
 		/* *********************************************************************
 		 * Checks if the given POS is NULL. if affirmative raises an exception.
@@ -82,7 +81,7 @@ public class MITWordnetUtils {
 
 		
 		//the resulting object
-		Map<String, List<ISynset>> synsetsPerSupersenses = new TreeMap<String, List<ISynset>>();
+		Map<String, ArrayList<ISynset>> synsetsPerSupersenses = new TreeMap<String, ArrayList<ISynset>>();
 		
 		try {
 			//Retrieve iterator over all Synsets under a certain Part-Of-Speech tag.

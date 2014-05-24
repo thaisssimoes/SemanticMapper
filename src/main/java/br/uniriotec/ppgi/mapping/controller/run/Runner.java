@@ -1,14 +1,16 @@
 package br.uniriotec.ppgi.mapping.controller.run;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
 
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
 import br.uniriotec.ppgi.mapping.model.exception.WordnetHelperException;
+import edu.mit.jwi.item.ILexFile;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.POS;
 import edu.mit.jwi.item.Pointer;
@@ -19,15 +21,16 @@ public class Runner {
 	public void run(){
 		try{
 			//List only nouns that DOES NOT present a hyponym relation to other nouns
-			Map<String, List<ISynset>> synsetsPerSupersenses = MITWordnetUtils.listAllSynsets(POS.NOUN, Pointer.HYPONYM, true);
+			Map<String, ArrayList<ISynset>> synsetsPerSupersenses = MITWordnetUtils.listAllSynsets(POS.NOUN, Pointer.HYPONYM, true);
 			
-			
-			for(Entry<String, List<ISynset>> e : synsetsPerSupersenses.entrySet()){
-				logger.info("Supersense: "+e.getKey());
-				logger.info(" -- Total de synsets: "+e.getValue().size());
-				logger.info(" -- "+e.getValue().get(0));
-				logger.info(" -- "+e.getValue().get(0).getGloss());
+			for(Entry<String, ArrayList<ISynset>> e : synsetsPerSupersenses.entrySet()){
+				logger.info("Supersense: "+e.getKey()+"| -- Total de synsets: "+e.getValue().size());
+//				logger.info(" -- "+e.getValue().get(0));
+//				logger.info(" -- "+e.getValue().get(0).getGloss());
 			}
+			
+			//Map each synset to a semantic type
+			Map<ISynset, Pair<ILexFile, SemanticType>> mappedSynsets;
 			
 		}catch(WordnetHelperException e){
 			logger.error(e);
