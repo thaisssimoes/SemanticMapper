@@ -45,7 +45,8 @@ public class Runner {
 //		 
 //		SemanticType st = new SemanticType();
 //		st.setName("test");
-//		st.setDefinition("descri'c~ao");
+//		st.setDefinition("descricao");
+//		st.setPos(POS.NOUN);
 // 
 //		//realizando operação para salvar no banco
 //		session.beginTransaction();

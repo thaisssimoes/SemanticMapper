@@ -28,6 +28,8 @@
 		 
 		
 		<mapping class="br.uniriotec.ppgi.mapping.model.SemanticType" />
+		<mapping class="br.uniriotec.ppgi.mapping.model.Supersense" />
+		<mapping class="br.uniriotec.ppgi.mapping.model.MySynset" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,37 +17,40 @@ import javax.persistence.Table;
 import edu.mit.jwi.item.POS;
 
 @Entity
-@Table(name="semantic_types")
-public class SemanticType {
+@Table(name="supersense")
+public class Supersense {
+	
 	@Id 
-	@GeneratedValue
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id", nullable=false)
 	private int id;
-	@Column(name = "name", nullable=false, unique=true)
-	private String name;
 	@Enumerated(EnumType.STRING)
 	private POS pos;
+	@Column(name = "name", nullable=false, unique=true)
+	private String name;
 	@Column(name = "definition", nullable=false)
 	private String definition;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semanticType")
+	@Column(name = "wnSynsetID", nullable=false, unique=true)
+	private String wnSynsetID;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supersense")
 	private Set<MySynset> synsets = new HashSet<MySynset>(0);
 	
-	public SemanticType(){}
-	
+	public Supersense(){}
+
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
 	public POS getPos() {
 		return pos;
 	}
 	public void setPos(POS pos) {
 		this.pos = pos;
+	}
+	public String getName() {
+		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -57,12 +61,5 @@ public class SemanticType {
 	public void setDefinition(String definition) {
 		this.definition = definition;
 	}
-	public Set<MySynset> getSynsets() {
-		return synsets;
-	}
-	public void setSynsets(Set<MySynset> synsets) {
-		this.synsets = synsets;
-	}
-	
 	
 }
