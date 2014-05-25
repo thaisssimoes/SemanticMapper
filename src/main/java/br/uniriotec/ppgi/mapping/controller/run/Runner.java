@@ -26,8 +26,6 @@ public class Runner {
 			
 			for(Entry<String, ArrayList<ISynset>> e : synsetsPerSupersenses.entrySet()){
 				logger.info("Supersense: "+e.getKey()+"| -- Total de synsets: "+e.getValue().size());
-//				logger.info(" -- "+e.getValue().get(0));
-//				logger.info(" -- "+e.getValue().get(0).getGloss());
 			}
 			
 			//Map each synset to a semantic type
@@ -38,6 +36,24 @@ public class Runner {
 		} catch (IOException e) {
 			logger.error(e);
 		}
+		
+		
+		
+		
+		
+//		Session session =  HibernateUtil.getSessionFactory().openSession();
+//		 
+//		SemanticType st = new SemanticType();
+//		st.setName("test");
+//		st.setDefinition("descri'c~ao");
+// 
+//		//realizando operação para salvar no banco
+//		session.beginTransaction();
+//		session.save(st);
+//		session.getTransaction().commit();
+//		session.close();
+		
+		
 	}
 	
 }
