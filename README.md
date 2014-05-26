@@ -1,7 +1,7 @@
 Supersense to SemanticType Mapper
 =================================
 
-This application is a command line tool to map synsets along with their respective Supersenses[^ciaramita1][^ciaramita2] (Lexical Files) to the Semantic Types described by Dixon (2005)[^dixon]. This code is intended to be used along with a local installation of Princeton's WordNet (US-English).
+This application is a command line tool to map synsets along with their respective Supersenses[1][2] (Lexical Files) to the Semantic Types described by Dixon (2005)[3]. This code is intended to be used along with a local installation of Princeton's WordNet (US-English).
 
 ----------
 
@@ -17,7 +17,7 @@ Table of Contents
 Why mapping Supersenses to Semantic Types?
 -------------------------------------------
 
-Supersenses are high level generic classes intended to serve as top hypernyms to WordNet's synsets. They are derived from the work by Ciaramita and Johnson (2003) and Ciaramita and Altun (2006), and have been implemented in WordNet since early versions. Currently WordNet describe [45 Supersenses](http://wordnet.princeton.edu/wordnet/man/lexnames.5WN.html) according to the distribution shown by the table below:
+Supersenses are high level generic classes intended to serve as top hypernyms to WordNet's synsets. They are derived from the work by Ciaramita and Johnson (2003)[1] and Ciaramita and Altun (2006)[2], and have been implemented in WordNet since early versions. Currently WordNet describe [45 Supersenses](http://wordnet.princeton.edu/wordnet/man/lexnames.5WN.html) according to the distribution shown by the table below:
 
 Open Word Class  | Quantity of Supersenses
 ---------------: | :-----
@@ -26,9 +26,9 @@ Verb             | 15
 Adjective        | 3
 Adverb           | 1
 
-On the other hand, another kind of high level classes have been proposed, not only grouping words by common meaning, but also describing some characteristics they share. These classes are the Semantic Types, proposed by Dixon (2005). Semantic Types are able to indicate whether a word refers to something that should be counted by mass instead of unit (Semantic Type "*Quantity*") or something that refers to an abstract concept (Semantic Type "*Other*").
+On the other hand, another kind of high level classes have been proposed, not only grouping words by common meaning, but also describing some characteristics they share. These classes are the Semantic Types, proposed by Dixon (2005)[3]. Semantic Types are able to indicate whether a word refers to something that should be counted by mass instead of unit (Semantic Type "*Quantity*") or something that refers to an abstract concept (Semantic Type "*Other*").
 
-As proven by other works such as Castro *et.al.* (2011)[^castro], the identification of which Semantic type is related to a word may provide enough semantic to associate a word to a construct of a well-founded ontology language such as OntoUML, based on the Unified Foundational Ontology by Guizzardi (2005)[^guizzardi].
+As proven by other works such as Castro *et.al.* (2011)[4], the identification of which Semantic type is related to a word may provide enough semantic to associate a word to a construct of a well-founded ontology language such as OntoUML, based on the Unified Foundational Ontology by Guizzardi (2005)[5].
 
 This mapping tool is being developed under as a part of the research I'm currently developing as a M.SC. candidate at the UNIRIO (Universidade Federal do Estado do Rio de Janeiro). For further information please refer to my [website](http://www.fleao.com.br).
 
@@ -83,12 +83,12 @@ This application is provided under the MIT License (check the license.txt file).
 ------
 
 
-  [^ciaramita1]: Ciaramita, Massimiliano, and Mark Johnson. **Supersense Tagging of Unknown Nouns in Wordnet**. Proceedings of the 2003 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2003, 168–75.
+  [1]: Ciaramita, Massimiliano, and Mark Johnson. **Supersense Tagging of Unknown Nouns in Wordnet**. Proceedings of the 2003 Conference on Empirical Methods in Natural Language Processing (EMNLP), 2003, 168–75.
 
-  [^ciaramita2]: Ciaramita, Massimiliano, and Yasemin Altun. **Broad-Coverage Sense Disambiguation and Information Extraction with a Supersense Sequence Tagger**. In Proceedings of the 2006 Conference on Empirical Methods in Natural Language Processing, 594–602. EMNLP ’06. Stroudsburg, PA, USA: Association for Computational Linguistics, 2006. http://dl.acm.org/citation.cfm?id=1610075.1610158.
+  [2]: Ciaramita, Massimiliano, and Yasemin Altun. **Broad-Coverage Sense Disambiguation and Information Extraction with a Supersense Sequence Tagger**. In Proceedings of the 2006 Conference on Empirical Methods in Natural Language Processing, 594–602. EMNLP ’06. Stroudsburg, PA, USA: Association for Computational Linguistics, 2006. http://dl.acm.org/citation.cfm?id=1610075.1610158.
 
-  [^dixon]: Dixon, R. M. W. **A Semantic Approach to English Grammar**. 2nd ed. Oxford University Press, USA, 2005.
+  [3]: Dixon, R. M. W. **A Semantic Approach to English Grammar**. 2nd ed. Oxford University Press, USA, 2005.
 
-  [^castro]: Castro, Lucia, Fernanda Baião, and Giancarlo Guizzardi. **A Semantic Oriented Method for Conceptual Data Modeling in ontoUML Based on Linguistic Concepts**. In Proceedings of the 30th International Conference on Conceptual Modeling, 486–94. ER’11. Berlin, Heidelberg: Springer-Verlag, 2011. http://dl.acm.org/citation.cfm?id=2075144.2075195.
+  [4]: Castro, Lucia, Fernanda Baião, and Giancarlo Guizzardi. **A Semantic Oriented Method for Conceptual Data Modeling in ontoUML Based on Linguistic Concepts**. In Proceedings of the 30th International Conference on Conceptual Modeling, 486–94. ER’11. Berlin, Heidelberg: Springer-Verlag, 2011. http://dl.acm.org/citation.cfm?id=2075144.2075195.
 
-  [^guizzardi]:Guizzardi, Giancarlo. **Ontological Foundations for Structural Conceptual Models**. Vol. 15. Fundamental Research Series. The Netherlands: Telematica Insituut, 2005.
+  [5]:Guizzardi, Giancarlo. **Ontological Foundations for Structural Conceptual Models**. Vol. 15. Fundamental Research Series. The Netherlands: Telematica Insituut, 2005.
