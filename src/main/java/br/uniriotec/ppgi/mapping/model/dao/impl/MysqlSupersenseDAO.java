@@ -37,7 +37,7 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	
 	
 	
-	public Supersense load(int id){
+	public Supersense load(int id) throws SQLException{
 		SessionFactory factory =  HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
@@ -54,7 +54,7 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public Supersense getByName(String name){
+	public Supersense getByName(String name) throws SQLException{
 		SessionFactory factory =  HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
 		session.beginTransaction();
@@ -73,7 +73,7 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	}
 	
 	
-	public boolean checkIfNameExists(Supersense ss){
+	public boolean checkIfNameExists(Supersense ss) throws SQLException{
 		if(getByName(ss.getName()) == null){
 			return false;
 		}else{
