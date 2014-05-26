@@ -47,26 +47,24 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<String, ArrayList<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
+	public static Map<Integer, ArrayList<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
 		return listAllSynsets(pos, null, false);
 	}
 	
 	
 	/**
-	 * List all synsets under a certain Part-Of-Speech tag (POS), filtering by the presence or absence
-	 * of a certain Pointer.
-	 * 
-	 * OBSERVATION: if no Pointer is informed (null) and noPointerRelation is TRUE, no synset will be returned, 
-	 * since all synsets have at least on pointer relation.
+	 * List all synsets under a certain Part-Of-Speech tag (POS), filtering by the presence 
+	 * or absence of a certain Pointer. If no Pointer is informed (null) and noPointerRelation 
+	 * is TRUE, no synset will be returned, since all synsets have at least on pointer relation.
 	 * 
 	 * @param pos
 	 * @param pointer
 	 * @param noPointerRelation
-	 * @return
+	 * @return Map with LexFile id as index and arrays of ISynset as values
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<String, ArrayList<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
+	public static Map<Integer, ArrayList<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
 		
 		/* *********************************************************************
 		 * Checks if the given POS is NULL. if affirmative raises an exception.
@@ -80,8 +78,9 @@ public class MITWordnetUtils {
 		/* *********************************************************************/
 
 		
-		//the resulting object
-		Map<String, ArrayList<ISynset>> synsetsPerSupersenses = new TreeMap<String, ArrayList<ISynset>>();
+		//The returned object
+		Map<Integer, ArrayList<ISynset>> synsetsPerSupersenses = new TreeMap<Integer, ArrayList<ISynset>>();
+		
 		
 		try {
 			//Retrieve iterator over all Synsets under a certain Part-Of-Speech tag.
@@ -114,17 +113,18 @@ public class MITWordnetUtils {
 				
 				//Filter synsets adding them to the resulting object
 				if(searchAssertion){
-					ILexFile supersense = synset.getLexicalFile();
+					ILexFile lexFile = synset.getLexicalFile();
 					
 					//Checks if the resulting map already have the supersense as index
 					//if negative instantiate a new index position for that supersense
-					if(synsetsPerSupersenses.get(supersense.getName()) == null){
-						synsetsPerSupersenses.put(supersense.getName(), new ArrayList<ISynset>());
+					if(synsetsPerSupersenses.get(lexFile.getNumber()) == null){
+						synsetsPerSupersenses.put(lexFile.getNumber(), new ArrayList<ISynset>());
 					}
 					//adds the synset to its related supersense
-					synsetsPerSupersenses.get(supersense.getName()).add(synset);
+					synsetsPerSupersenses.get(lexFile.getNumber()).add(synset);
 				}
 			}
+			
 			
 		} catch (IOException e) {
 			logger.error(e);

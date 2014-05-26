@@ -1,0 +1,22 @@
+INSERT INTO semantic_types(id,name,pos,definition) VALUES
+  ("1","Animate","NOUN","Determina classes de seres nomeados por substantivos e que têm existência independente, cujas instâncias são animais não humanos. Instâncias desta classe são indivíduos contáveis."),
+  ("2","Human","NOUN","Metaclasse que determina classes de seres nomeados por substantivos e que tém existéncia independente, cujas instâncias são animais humanos; tais instâncias são indivíduos contáveis."),
+  ("3","Kin","NOUN","Metaclasse relacionada à metaclasse Human, cujas metapropridades determinam a distinção do papel desempenhado por um Human em relação aos outros membros de um grupo familiar a que ele pertence."),
+  ("4","Rank","NOUN","Expressa a função ou papel desempenhado por um Human em relação a outros membros de um grupo a que ele pertença, só que, neste caso, esse grupo não é familiar."),
+  ("5","Social Group","NOUN","Substantivos cujos referentes são grupos de indivíduos vistos como uma unidade funcional unicamente identificada."),
+  ("6","Parts","NOUN","Metaclasse que determina classes de coisas que podem ser vistas como partes de outras coisas ou seres, incluindo as partes corpóreas."),
+  ("7","Inanimate","NOUN","Metaclasse cujas meta propriedades determinam classes de coisas ou seres inanimados (literalmente, os 'sem alma')."),
+  ("8","Artefact","NOUN","Metaclasse cujas metapropriedades determinam classes de coisas fabricadas pelo homem, ou seja, que não existem na natureza."),
+  ("9","Celestial & Weather","NOUN","Metaclasse cujas metapropriedades determinam classes de referentes que são corpos celestes ou ligados ao tempo, como chuva e vento."),
+  ("10","Environment","NOUN","Metaclasse cujas metapropriedades determinam classes de elementos naturais em sua maioria pertencente ao reino mineral e vistos como uma massa contínua e indiferenciável, como por exemplo ouro, ferro, água, etc."),
+  ("11","Flora","NOUN","Metaclasse cujas metapropriedades determinam seres do mundo natural cujos referentes pertencem ao reino vegetal."),
+  ("12","Time","NOUN","Metaclasse cujas metapropriedades determinam classes que referem-se a unidades do tempo."),
+  ("13","Place","NOUN","Metaclasse cujas metapropriedades determinam classes que referem- se a localizações, como os nomes dos pontos cardeais, por exemplo."),
+  ("14","Quantity","NOUN","Metaclasse cujas metapropriedades determinam classes de conceitos que referenciam quantidades, incluindo unidades de medida."),
+  ("15","Variety","NOUN","Metaclasse cujas metapropriedades determinam classes de conceitos que referenciam variedades de tipos e formas, incluindo formas geométricas."),
+  ("16","Language","NOUN","Metaclasse cujas metapropriedades determinam classes que referenciam elementos lingüísticos, como palavra, sentença, oração, substantivo, etc."),
+  ("17","Other","NOUN","Metaclasse cujas metapropriedades determinam classes de substantivos que referenciam conceitos abstratos como idéia, unidade, método, resultado, verdade, etc."),
+  ("18","Activity","NOUN","Metaclasse que determina atividades; são referéncias abstratas a ações, cujos signos derivam-se de verbos."),
+  ("19","States","NOUN","Metaclasse cujas metapropriedades determinam estados físicos ou mentais de indivíduos, ou ainda propriedades individuais, como, por exemplo, prazer, força, dor, saudade, etc."),
+  ("20","Speech Acts","NOUN","Metaclasse cujas metapropriedades determinam atos de fala, tais como, ordem, pergunta, conversa, promessa, etc.")
+;

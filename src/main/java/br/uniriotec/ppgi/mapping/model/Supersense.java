@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import edu.mit.jwi.item.POS;
 
 @Entity
-@Table(name="supersense")
+@Table(name="supersenses")
 public class Supersense {
 	
 	@Id 
@@ -28,10 +28,8 @@ public class Supersense {
 	private POS pos;
 	@Column(name = "name", nullable=false, unique=true)
 	private String name;
-	@Column(name = "definition", nullable=false)
+	@Column(name = "definition", columnDefinition="TEXT", nullable=false)
 	private String definition;
-	@Column(name = "wnSynsetID", nullable=false, unique=true)
-	private String wnSynsetID;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supersense")
 	private Set<MySynset> synsets = new HashSet<MySynset>(0);
 	
@@ -61,5 +59,12 @@ public class Supersense {
 	public void setDefinition(String definition) {
 		this.definition = definition;
 	}
+	public Set<MySynset> getSynsets() {
+		return synsets;
+	}
+	public void setSynsets(Set<MySynset> synsets) {
+		this.synsets = synsets;
+	}
+	
 	
 }

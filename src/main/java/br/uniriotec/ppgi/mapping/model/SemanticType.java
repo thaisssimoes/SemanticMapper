@@ -26,7 +26,7 @@ public class SemanticType {
 	private String name;
 	@Enumerated(EnumType.STRING)
 	private POS pos;
-	@Column(name = "definition", nullable=false)
+	@Column(name = "definition", columnDefinition="TEXT", nullable=false)
 	private String definition;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semanticType")
 	private Set<MySynset> synsets = new HashSet<MySynset>(0);
