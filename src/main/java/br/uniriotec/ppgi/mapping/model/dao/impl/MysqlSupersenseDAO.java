@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -18,8 +17,7 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	public void save(Supersense ss) throws SQLException {
 		Supersense loadedSS = getByName(ss.getName());
 		if(loadedSS == null){
-			SessionFactory factory =  HibernateUtil.getSessionFactory();
-			Session session = factory.openSession();
+			Session session = HibernateUtil.openSession();
 			Transaction tx = session.beginTransaction();
 			
 			session.saveOrUpdate(ss);
@@ -28,7 +26,6 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 			session.refresh(ss);
 			tx.commit();
 			session.close();
-			factory.close();
 		}else{
 			ss.setId(loadedSS.getId());
 		}
@@ -38,14 +35,12 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	
 	
 	public Supersense load(int id) throws SQLException{
-		SessionFactory factory =  HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.openSession();
 		session.beginTransaction();
 		
 		Supersense ss = (Supersense)session.load(Supersense.class, id);
 		
 		session.close();
-		factory.close();
 		
 		return ss;
 	}
@@ -55,8 +50,7 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 	
 	@SuppressWarnings("rawtypes")
 	public Supersense getByName(String name) throws SQLException{
-		SessionFactory factory =  HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.openSession();
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(Supersense.class)
@@ -68,7 +62,6 @@ public class MysqlSupersenseDAO implements ISupersenseDAO {
 		}
 		
 		session.close();
-		factory.close();
 		return ss;
 	}
 	

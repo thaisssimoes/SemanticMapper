@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,36 +15,27 @@ import br.uniriotec.ppgi.mapping.model.dao.IMySynsetDAO;
 public class MysqlMySynsetDAO implements IMySynsetDAO {
 
 	public void save(List<MySynset> synsetSamples) throws SQLException {
-		SessionFactory factory =  HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.openSession();
+		Transaction tx = session.beginTransaction();
 		
 		for(MySynset synset : synsetSamples){
-			MySynset loadedMS = getByWordnetID(synset.getWordnetID());
-			if(loadedMS == null){
-				Transaction tx = session.beginTransaction();
-				session.save(synset);
-				session.flush();
-				tx.commit();
-			}else{
-				synset.setWordnetID(loadedMS.getWordnetID());
-			}
+			session.save(synset);
 		}
 		
+		session.flush();
+		tx.commit();
 		session.close();
-		factory.close();
 		
 	}
 	
 	
 	public MySynset load(int id) throws SQLException{
-		SessionFactory factory =  HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.openSession();
 		session.beginTransaction();
 		
 		MySynset ms = (MySynset)session.load(MySynset.class, id);
 		
 		session.close();
-		factory.close();
 		
 		return ms;
 	}
@@ -55,8 +45,7 @@ public class MysqlMySynsetDAO implements IMySynsetDAO {
 	
 	@SuppressWarnings("rawtypes")
 	public MySynset getByWordnetID(String wnID) throws SQLException{
-		SessionFactory factory =  HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.openSession();
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(MySynset.class)
@@ -68,7 +57,6 @@ public class MysqlMySynsetDAO implements IMySynsetDAO {
 		}
 		
 		session.close();
-		factory.close();
 		return ms;
 	}
 	

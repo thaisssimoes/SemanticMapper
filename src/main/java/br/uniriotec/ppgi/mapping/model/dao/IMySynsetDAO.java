@@ -8,7 +8,7 @@ import br.uniriotec.ppgi.mapping.model.MySynset;
 public interface IMySynsetDAO {
 
 	void save(List<MySynset> synsetSamples) throws SQLException;
-	public MySynset load(int id) throws SQLException;
-	public MySynset getByWordnetID(String wnID) throws SQLException;
+	MySynset load(int id) throws SQLException;
+	MySynset getByWordnetID(String wnID) throws SQLException;
 	
 }
