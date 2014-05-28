@@ -102,10 +102,13 @@ public class Runner {
 			
 		}catch(WordnetHelperException e){
 			logger.error(e);
+			e.printStackTrace();	//Remove stacktrace
 		} catch (IOException e) {
 			logger.error(e);
+			e.printStackTrace();	//Remove stacktrace
 		} catch (Exception e) {
 			logger.error(e);
+			e.printStackTrace();	//Remove stacktrace
 		}
 		
 		

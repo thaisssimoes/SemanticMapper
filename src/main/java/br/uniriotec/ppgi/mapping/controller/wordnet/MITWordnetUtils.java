@@ -167,5 +167,18 @@ public class MITWordnetUtils {
 		
 		return dict;
 	}
+
+	/**
+	 * Determine whether the modifier is present on the synset
+	 * hypernym tree (between the synset and the supersense).
+	 * 
+	 * @param synsetID - The synset ID as it appears in WordNet
+	 * @param modifierID - The modifiers ID as it appears in WordNet
+	 * @return
+	 */
+	public static boolean hasModifierSynset(String synsetID, String modifierID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
