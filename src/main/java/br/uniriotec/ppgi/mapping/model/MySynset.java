@@ -17,6 +17,15 @@ import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
 
+/**
+ * Model class representing a Wordnet Synset along with its
+ * main attributes. It always relates to a Supersense and it may
+ * relates to a SemanticType if the mapping has already been 
+ * conducted, otherwise the SemanticType is NULL.
+ * 
+ * @author felipe
+ *
+ */
 @Entity
 @Table(name="synsets")
 public class MySynset {

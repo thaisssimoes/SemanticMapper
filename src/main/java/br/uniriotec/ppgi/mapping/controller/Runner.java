@@ -1,4 +1,4 @@
-package br.uniriotec.ppgi.mapping.controller.run;
+package br.uniriotec.ppgi.mapping.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import br.uniriotec.ppgi.mapping.controller.mapper.SynsetConverter;
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
+import br.uniriotec.ppgi.mapping.controller.wordnet.SynsetConverter;
 import br.uniriotec.ppgi.mapping.model.MySynset;
 import br.uniriotec.ppgi.mapping.model.dao.DAOFactory;
 import br.uniriotec.ppgi.mapping.model.dao.IMySynsetDAO;
@@ -20,9 +20,20 @@ import edu.mit.jwi.item.LexFile;
 import edu.mit.jwi.item.POS;
 import edu.mit.jwi.item.Pointer;
 
+/**
+ * Class responsible for orchestrating the application steps.
+ * 
+ * @author felipe
+ *
+ */
 public class Runner {
 	private static Logger logger = Logger.getLogger(Runner.class);
 	
+	/**
+	 * Runs the application. It reads all synsets, select samples for 
+	 * each supersense, conducts necessary convertions and mappings to 
+	 * Semantic Types, persinsting the results in the Database.
+	 */
 	public void run(){
 		
 		try{
@@ -65,7 +76,8 @@ public class Runner {
 			 * *******************************************************/
 			logger.info("-- Mapping Synsets to Semantic Types.");
 			
-			//TODO
+			//Map synsets to Semantic Types 
+			SupersenseMapper.mapSupersensestoSemanticTypes(synsetSamples);
 			
 			
 			
@@ -81,8 +93,8 @@ public class Runner {
 				dao.save(synsetSamples);
 			}catch(SQLException e){
 				//If exception thrown, abort application
-				logger.error(e);
-				System.exit(1);
+				logger.error("Error while persisting resulting mappings.",e);
+				throw e;
 			}
 			
 			

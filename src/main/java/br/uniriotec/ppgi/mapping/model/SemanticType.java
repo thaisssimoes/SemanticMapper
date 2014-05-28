@@ -15,6 +15,14 @@ import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
 
+/**
+ * Model class representing a Dixon's Semantic Type. If the
+ * mapping has already been conducted it holds a set of related
+ * MySynset objects
+ * 
+ * @author felipe
+ *
+ */
 @Entity
 @Table(name="semantic_types")
 public class SemanticType {

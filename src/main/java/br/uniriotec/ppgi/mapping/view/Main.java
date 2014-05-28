@@ -3,12 +3,29 @@ package br.uniriotec.ppgi.mapping.view;
 import java.io.IOException;
 import java.util.Scanner;
 
-import br.uniriotec.ppgi.mapping.controller.run.Runner;
+import br.uniriotec.ppgi.mapping.controller.Runner;
 
+
+/**
+ * This is the first class called when the application runs.
+ * It prompts the user for a confirmation for dropping the
+ * database schema, if it confirms the continuation the class
+ * calls the controller layer to start the mapping procedure.
+ * 
+ * @author felipe
+ *
+ */
 public class Main {
 	private static Scanner scan = new Scanner(System.in);
     private static String userInput = null;
     
+    
+    /**
+     * The main method of the application
+     * 
+     * @param args
+     * @throws IOException
+     */
 	public static void main(String[] args) throws IOException {
 		
 		/*

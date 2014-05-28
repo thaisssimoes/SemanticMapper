@@ -12,6 +12,14 @@ import br.uniriotec.ppgi.mapping.model.MySynset;
 import br.uniriotec.ppgi.mapping.model.dao.HibernateUtil;
 import br.uniriotec.ppgi.mapping.model.dao.IMySynsetDAO;
 
+
+/**
+ * Implementation of IMySynsetDAO to handle Hibernate
+ * persistence.
+ * 
+ * @author felipe
+ *
+ */
 public class MysqlMySynsetDAO implements IMySynsetDAO {
 
 	public void save(List<MySynset> synsetSamples) throws SQLException {
@@ -27,19 +35,6 @@ public class MysqlMySynsetDAO implements IMySynsetDAO {
 		session.close();
 		
 	}
-	
-	
-	public MySynset load(int id) throws SQLException{
-		Session session = HibernateUtil.openSession();
-		session.beginTransaction();
-		
-		MySynset ms = (MySynset)session.load(MySynset.class, id);
-		
-		session.close();
-		
-		return ms;
-	}
-	
 	
 	
 	

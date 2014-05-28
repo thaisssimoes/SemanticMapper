@@ -1,4 +1,4 @@
-package br.uniriotec.ppgi.mapping.controller.mapper;
+package br.uniriotec.ppgi.mapping.controller.wordnet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,6 +53,7 @@ public class SynsetConverter {
 			
 			//Instantiate a new Supersense Object
 			Supersense ss = new Supersense();
+				ss.setId(lexFile.getNumber());
 				ss.setName(lexFile.getName());
 				ss.setPos(lexFile.getPOS());
 				ss.setDefinition(lexFile.getDescription());

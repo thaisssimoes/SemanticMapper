@@ -12,6 +12,13 @@ import br.uniriotec.ppgi.mapping.model.Supersense;
 import br.uniriotec.ppgi.mapping.model.dao.HibernateUtil;
 import br.uniriotec.ppgi.mapping.model.dao.ISupersenseDAO;
 
+/**
+ * implementation of IMysqlDAO interface to handle
+ * Hibernate persistence.
+ * 
+ * @author felipe
+ *
+ */
 public class MysqlSupersenseDAO implements ISupersenseDAO {
 
 	public void save(Supersense ss) throws SQLException {

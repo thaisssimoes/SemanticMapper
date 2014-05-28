@@ -8,20 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
 
+/**
+ * Mode class representing a Supersense, meaning a Wordnet Lexical File
+ * or Lexname. This object is used to enable relations between MySynset 
+ * objects and SemanticType objects.
+ * @author felipe
+ *
+ */
 @Entity
 @Table(name="supersenses")
 public class Supersense {
 	
 	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id", nullable=false)
 	private int id;
 	@Enumerated(EnumType.STRING)
