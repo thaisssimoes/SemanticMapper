@@ -2,7 +2,7 @@ package br.uniriotec.ppgi.mapping.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,11 +44,11 @@ public class Runner {
 			logger.info("-- Retrieving all synsets for each supersense.");
 			
 			//List only nouns that DOES NOT present a hyponym relation to other nouns
-			Map<Integer, ArrayList<ISynset>> synsetsPerSupersenses = 
+			Map<Integer, HashSet<ISynset>> synsetsPerSupersenses = 
 					MITWordnetUtils.listAllSynsets(POS.NOUN, Pointer.HYPONYM, true);
 			
 			//debug log
-			for(Entry<Integer, ArrayList<ISynset>> e : synsetsPerSupersenses.entrySet()){
+			for(Entry<Integer, HashSet<ISynset>> e : synsetsPerSupersenses.entrySet()){
 				logger.debug("Supersense: "+LexFile.getLexicalFile(e.getKey())+"| -- Total de synsets: "+e.getValue().size());
 			}
 			

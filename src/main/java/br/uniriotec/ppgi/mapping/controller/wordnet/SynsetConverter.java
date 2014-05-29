@@ -2,6 +2,7 @@ package br.uniriotec.ppgi.mapping.controller.wordnet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,12 +42,12 @@ public class SynsetConverter {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static List<MySynset> convertSupersenseMap(Map<Integer, ArrayList<ISynset>> synsetsPerSupersenses) throws Exception{
+	public static List<MySynset> convertSupersenseMap(Map<Integer, HashSet<ISynset>> synsetsPerSupersenses) throws Exception{
 		//Instantiate returned object
 		List<MySynset> mySynsetList = new ArrayList<MySynset>();
 		
 		//Iterate each index of the map
-		for(Entry<Integer, ArrayList<ISynset>> e : synsetsPerSupersenses.entrySet()){
+		for(Entry<Integer, HashSet<ISynset>> e : synsetsPerSupersenses.entrySet()){
 			//Check for a LexFile object with the given ID
 			LexFile.checkLexicalFileNumber(e.getKey());
 			ILexFile lexFile = LexFile.getLexicalFile(e.getKey());

@@ -2,7 +2,6 @@ package br.uniriotec.ppgi.mapping.controller;
 
 import java.util.List;
 
-import br.uniriotec.ppgi.mapping.controller.mapper.CommunicationMapper;
 import br.uniriotec.ppgi.mapping.controller.mapper.ObjectMapper;
 import br.uniriotec.ppgi.mapping.model.MySynset;
 
@@ -49,7 +48,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 10: //	noun.communication
-					CommunicationMapper.mapToSemType(ms);
+//					CommunicationMapper.mapToSemType(ms);
 					break;
 					
 				case 11: //	noun.event

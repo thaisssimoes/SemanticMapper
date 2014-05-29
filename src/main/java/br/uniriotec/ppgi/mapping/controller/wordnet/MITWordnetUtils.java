@@ -3,7 +3,7 @@ package br.uniriotec.ppgi.mapping.controller.wordnet;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,7 +16,10 @@ import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.ILexFile;
 import edu.mit.jwi.item.IPointer;
 import edu.mit.jwi.item.ISynset;
+import edu.mit.jwi.item.ISynsetID;
 import edu.mit.jwi.item.POS;
+import edu.mit.jwi.item.Pointer;
+import edu.mit.jwi.item.SynsetID;
 import edu.mit.jwi.morph.WordnetStemmer;
 
 public class MITWordnetUtils {
@@ -47,7 +50,7 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<Integer, ArrayList<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
+	public static Map<Integer, HashSet<ISynset>> listAllSynsets(POS pos) throws IOException, WordnetHelperException{
 		return listAllSynsets(pos, null, false);
 	}
 	
@@ -56,6 +59,8 @@ public class MITWordnetUtils {
 	 * List all synsets under a certain Part-Of-Speech tag (POS), filtering by the presence 
 	 * or absence of a certain Pointer. If no Pointer is informed (null) and noPointerRelation 
 	 * is TRUE, no synset will be returned, since all synsets have at least on pointer relation.
+	 * Instances are not returned on the returning object inner lists, since the synsets they 
+	 * instantiate are already in the lists of ISynset objects.
 	 * 
 	 * @param pos
 	 * @param pointer
@@ -64,13 +69,13 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<Integer, ArrayList<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
+	public static Map<Integer, HashSet<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
 		
 		/* *********************************************************************
 		 * Checks if the given POS is NULL. if affirmative raises an exception.
 		 * *********************************************************************/
 		if(pos == null){
-			WordnetHelperException e = new WordnetHelperException("A valid POS value must be informed.");
+			WordnetHelperException e = new WordnetHelperException("A valid Part-Of-Speech tag (POS) value must be informed.");
 			logger.error(e);
 			throw e;
 		}
@@ -79,7 +84,7 @@ public class MITWordnetUtils {
 
 		
 		//The returned object
-		Map<Integer, ArrayList<ISynset>> synsetsPerSupersenses = new TreeMap<Integer, ArrayList<ISynset>>();
+		Map<Integer, HashSet<ISynset>> synsetsPerSupersenses = new TreeMap<Integer, HashSet<ISynset>>();
 		
 		
 		try {
@@ -113,12 +118,18 @@ public class MITWordnetUtils {
 				
 				//Filter synsets adding them to the resulting object
 				if(searchAssertion){
+					
+					//If it is an instance (has HYPERNYM_INSTANCE pointer) Ignore it
+					if(synset.getRelatedSynsets(Pointer.HYPERNYM_INSTANCE).size() > 0){
+						continue;
+					}
+					
 					ILexFile lexFile = synset.getLexicalFile();
 					
 					//Checks if the resulting map already have the supersense as index
 					//if negative instantiate a new index position for that supersense
 					if(synsetsPerSupersenses.get(lexFile.getNumber()) == null){
-						synsetsPerSupersenses.put(lexFile.getNumber(), new ArrayList<ISynset>());
+						synsetsPerSupersenses.put(lexFile.getNumber(), new HashSet<ISynset>());
 					}
 					//adds the synset to its related supersense
 					synsetsPerSupersenses.get(lexFile.getNumber()).add(synset);
@@ -175,9 +186,30 @@ public class MITWordnetUtils {
 	 * @param synsetID - The synset ID as it appears in WordNet
 	 * @param modifierID - The modifiers ID as it appears in WordNet
 	 * @return
+	 * @throws IOException 
 	 */
-	public static boolean hasModifierSynset(String synsetID, String modifierID) {
-		// TODO Auto-generated method stub
+	public static boolean hasModifierSynset(String synsetID, String modifierID) throws IOException {
+		IDictionary dict = getDictionary();
+		ISynset synset = dict.getSynset(SynsetID.parseSynsetID(synsetID));
+		ISynset modifier = dict.getSynset(SynsetID.parseSynsetID(modifierID));
+		
+		//While the current synset being queried has a hypernym
+		while(synset.getRelatedSynsets(Pointer.HYPERNYM).size() > 0){
+			ISynsetID hypernymID = synset.getRelatedSynsets(Pointer.HYPERNYM).get(0);
+			ISynset hypernym = dict.getSynset(hypernymID);
+			
+			//Checks if the hypernym directly above is the modifier.
+			//If it is, return true
+			if(hypernym.toString().equals(modifier.toString())){
+				return true;
+			}
+			
+			//Update current synset to the hypernym, so it goes up on the tree.
+			synset = hypernym;
+		}
+		
+		//At this point all hypernyms have been checked and none of the
+		//are the modifier given as parameter, so returns false.
 		return false;
 	}
 	

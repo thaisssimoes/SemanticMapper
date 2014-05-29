@@ -20,18 +20,18 @@ public class ObjectMapper {
 	 * 
 	 * @param synset
 	 * @throws Exception 
-	 */
+	 */	
 	public static void mapToSemType(MySynset synset) throws Exception{
 		
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
 		boolean hasExtraterrestrialBody = 
 				MITWordnetUtils.hasModifierSynset(synset.getWordnetID(), 
-				ModifierSynsetLoader.getInstance().getByName("ExtraterrestrialBody").getWordnetID());
+				ModifierSynsetLoader.getInstance().getByName("ExtraterrestrialObject").getWordnetID());
 		
 		boolean hasCelestialObject = 
 				MITWordnetUtils.hasModifierSynset(synset.getWordnetID(), 
-				ModifierSynsetLoader.getInstance().getByName("CelestialObject").getWordnetID());
+				ModifierSynsetLoader.getInstance().getByName("CelestialBody").getWordnetID());
 		
 		if(hasExtraterrestrialBody || hasCelestialObject){
 			synset.setSemanticType(SemanticTypeLoader.getInstance().getByName("Celestial & Weather"));
