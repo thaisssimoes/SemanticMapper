@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import br.uniriotec.ppgi.mapping.controller.mapper.SupersenseMapper;
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
 import br.uniriotec.ppgi.mapping.controller.wordnet.SynsetConverter;
 import br.uniriotec.ppgi.mapping.model.MySynset;

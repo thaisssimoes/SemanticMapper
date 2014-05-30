@@ -1,8 +1,7 @@
-package br.uniriotec.ppgi.mapping.controller;
+package br.uniriotec.ppgi.mapping.controller.mapper;
 
 import java.util.List;
 
-import br.uniriotec.ppgi.mapping.controller.mapper.ObjectMapper;
 import br.uniriotec.ppgi.mapping.model.MySynset;
 
 /**
@@ -27,6 +26,7 @@ public class SupersenseMapper {
 			
 			switch(ms.getSupersense().getId()){
 				case 3:	//noun.Tops	
+					//Ignore, since tops should not even exist as an actual Supersense
 					break;
 					
 				case 4:	//noun.act
