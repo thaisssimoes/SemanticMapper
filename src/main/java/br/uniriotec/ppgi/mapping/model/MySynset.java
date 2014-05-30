@@ -1,8 +1,11 @@
 package br.uniriotec.ppgi.mapping.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -12,6 +15,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -39,9 +44,11 @@ public class MySynset {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_supersense", nullable = false)
 	private Supersense supersense;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_semantic_type", nullable = true)
-	private SemanticType semanticType;
+	@ManyToMany(cascade = { CascadeType.ALL })  
+	@JoinTable(name = "synset_has_semtype", 
+		joinColumns = { @JoinColumn(name = "wordnet_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "id_semtype") })
+	private Set<SemanticType> semanticTypes = new HashSet<SemanticType>();
 	@ElementCollection
 	@CollectionTable(name="words", joinColumns=@JoinColumn(name="id_synset"))
 	@Column(name="words", nullable=false)
@@ -73,11 +80,11 @@ public class MySynset {
 	public void setSupersense(Supersense supersense) {
 		this.supersense = supersense;
 	}
-	public SemanticType getSemanticType() {
-		return semanticType;
+	public Set<SemanticType> getSemanticType() {
+		return semanticTypes;
 	}
-	public void setSemanticType(SemanticType semanticType) {
-		this.semanticType = semanticType;
+	public void setSemanticType(Set<SemanticType> semanticType) {
+		this.semanticTypes = semanticType;
 	}
 	public List<String> getWords() {
 		return words;

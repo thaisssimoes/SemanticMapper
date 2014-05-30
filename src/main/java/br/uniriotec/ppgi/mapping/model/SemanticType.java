@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
@@ -36,7 +36,7 @@ public class SemanticType {
 	private POS pos;
 	@Column(name = "definition", columnDefinition="TEXT", nullable=false)
 	private String definition;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semanticType")
+	@ManyToMany(mappedBy = "semanticTypes", fetch=FetchType.LAZY)
 	private Set<MySynset> synsets = new HashSet<MySynset>(0);
 	
 	public SemanticType(){}
