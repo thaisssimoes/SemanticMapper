@@ -41,6 +41,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 6:	//noun.artifact
+					ArtifactMapper.mapToSemType(ms);
 					break;
 					
 				case 7:	//noun.attribute

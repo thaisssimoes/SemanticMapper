@@ -212,5 +212,32 @@ public class MITWordnetUtils {
 		//are the modifier given as parameter, so returns false.
 		return false;
 	}
+
+
+	/**
+	 * It checks if the synset is a holonym of other synset. Being a Holonym
+	 * means thar it is a part of something else. The method takes into account
+	 * the HOLONYM_SUBSTANCE, HOLONYM_MEMBER and HOLONYM_PART pointers.
+	 * 
+	 * @param wordnetID
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean isHolonym(String wordnetID) throws IOException {
+		IDictionary dict = getDictionary();
+		ISynset synset = dict.getSynset(SynsetID.parseSynsetID(wordnetID));
+		
+		int holonymRelations = 0;
+		holonymRelations += synset.getRelatedSynsets(Pointer.HOLONYM_SUBSTANCE).size();
+		holonymRelations += synset.getRelatedSynsets(Pointer.HOLONYM_MEMBER).size();
+		holonymRelations += synset.getRelatedSynsets(Pointer.HOLONYM_PART).size();
+		
+		if(holonymRelations > 0){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
 	
 }
