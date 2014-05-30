@@ -11,7 +11,8 @@ Table of Contents
  1. Why mapping Supersenses to Semantic Types?
  2. Preparing the environment
  3. Running the application
- 4. License
+ 4. After Running
+ 5. License
 
 
 Why mapping Supersenses to Semantic Types?
@@ -42,7 +43,9 @@ To install WordNet you can simply refer to the website project and download the 
 
 Once the repository has been cloned, import it into [Eclipse IDE](https://www.eclipse.org/) and don't forget to run a `maven update`, since [Maven](https://maven.apache.org/) is used to manage all the dependencies.
 
-You must also have a MySQL database installed and running. To run the tool the user must configure the resource file **hibernate.cfg.xml** under `src/main/resources` folder, indicating the URL, user and password for the MySQL database where the output data will be saved.
+You must also have a MySQL database installed and running. To run the tool the user must configure the resource file **hibernate.cfg.xml** under `src/main/resources` folder, indicating the URL, user and password for the MySQL database where the output data will be saved. The application will generate the schema itself on first run. 
+
+**Observation**: If any warnings concerning foreign key show up, ignore them, starting from the second run they won't happen again (For some reason Hibernate can't decide the right order for creating tables and respect the foreign keys).
 
 ```xml
 <hibernate-configuration>
@@ -72,6 +75,14 @@ Once the environment is prepared the tool can be run simply by calling the appli
 ```sh
 java -jar SupersenseMapping.jar
 ```
+
+
+After Running
+--------------
+
+Once the application has run, the database schema will have been generated, relating the sampled synsets to semantic types. if you wish to run the following step of the mapping evaluation described in my [Master's Thesis](http://www.fleao.com.br/researches), create the tables **User** and **Evaluation** through the DDL scripts on the file *other_tables.sql* in the project's root folder (same place as this README file).
+
+The evaluation can be conducted through another application, a PHP webapp also available as a repository named **UNDER_DEVELOPMENT**.
 
 
 License
