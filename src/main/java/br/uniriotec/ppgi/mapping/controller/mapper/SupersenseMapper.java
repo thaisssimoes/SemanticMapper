@@ -73,6 +73,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 14: //	noun.group
+					GroupMapper.mapToSemType(ms);
 					break;
 					
 				case 15: //	noun.location
