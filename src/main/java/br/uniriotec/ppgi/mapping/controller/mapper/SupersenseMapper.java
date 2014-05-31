@@ -70,6 +70,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 13: //	noun.food
+					FoodMapper.mapToSemType(ms);
 					break;
 					
 				case 14: //	noun.group
