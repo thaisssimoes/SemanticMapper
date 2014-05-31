@@ -10,3 +10,6 @@ INSERT INTO modifiers(wordnetID,name) VALUES ("SID-15137796-N","TimePeriod");
 INSERT INTO modifiers(wordnetID,name) VALUES ("SID-07721456-N","GreenGoods");
 INSERT INTO modifiers(wordnetID,name) VALUES ("SID-07665463-N","Meat");
 INSERT INTO modifiers(wordnetID,name) VALUES ("SID-07581905-N","FoodProduct");
+INSERT INTO modifiers(wordnetID,name) VALUES ("SID-06294878-N","LinguisticUnit");
+INSERT INTO modifiers(wordnetID,name) VALUES ("SID-06293304-N","LinguisticCommunication");
+INSERT INTO modifiers(wordnetID,name) VALUES ("SID-07175534-N","SpeechAct");
