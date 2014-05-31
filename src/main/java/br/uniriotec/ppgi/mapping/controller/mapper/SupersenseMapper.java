@@ -58,7 +58,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 10: //	noun.communication
-//					CommunicationMapper.mapToSemType(ms);
+					CommunicationMapper.mapToSemType(ms);
 					break;
 					
 				case 11: //	noun.event

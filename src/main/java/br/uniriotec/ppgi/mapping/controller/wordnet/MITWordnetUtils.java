@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +18,8 @@ import edu.mit.jwi.item.ILexFile;
 import edu.mit.jwi.item.IPointer;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.ISynsetID;
+import edu.mit.jwi.item.IWord;
+import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 import edu.mit.jwi.item.Pointer;
 import edu.mit.jwi.item.SynsetID;
@@ -238,6 +241,68 @@ public class MITWordnetUtils {
 			return false;
 		}
 
+	}
+	
+	
+	
+	/**
+	 * Checks if the synset is a related to a verb, being a Deverbal Noun.
+	 * When related it presents the DERIVATIONALLY_RELATED pointer.
+	 * 
+	 * @param wordnetID
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean isDerivationallyRelated(String wordnetID) throws IOException {
+		IDictionary dict = getDictionary();
+		ISynset synset = dict.getSynset(SynsetID.parseSynsetID(wordnetID));
+		
+		//Since DERIVATIONALLY_RELATED is a Lexical Pointer, it is only used for IWord objects
+		//It means that the words should be iterated.
+		for(IWord word : synset.getWords()){
+			//If the word has a DERIVATIONALLY_RELATED relation...
+			if(word.getRelatedWords(Pointer.DERIVATIONALLY_RELATED).size() > 0){
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+
+	/**
+	 * Checks if at least one of the words on the synset is homograph 
+	 * to at least one of the words in the verb synset that the noun is
+	 * derivationally related to.
+	 * 
+	 * @param wordnetID
+	 * @return
+	 * @throws IOException 
+	 */
+	public static boolean isHomographToVerb(String wordnetID) throws IOException {
+		IDictionary dict = getDictionary();
+		ISynset nounSynset = dict.getSynset(SynsetID.parseSynsetID(wordnetID));
+		
+		//For each word on the synset check for derivationally related forms
+		for(IWord nounSynsetWord : nounSynset.getWords()){
+			List<IWordID> relatedWordIDs = nounSynsetWord.getRelatedWords(Pointer.DERIVATIONALLY_RELATED);
+			//Foreach related verb...
+			for(IWordID relatedWordID : relatedWordIDs){
+				IWord relatedWord = dict.getWord(relatedWordID);
+				//... check if the related word lemma is homograph to the noun synset 
+				//word lemma being iterated and that the related word is a VERB...
+				boolean isVerb = (relatedWord.getPOS() == POS.VERB);
+				boolean isHomograph = (relatedWord.getLemma().equalsIgnoreCase(nounSynsetWord.getLemma()));
+				if(isVerb && isHomograph){
+					//If an homograph is found, ends the method
+					return true;
+				}
+			}
+		}
+		
+		//no homograph foun in any iteration.
+		return false;
+		
 	}
 	
 }

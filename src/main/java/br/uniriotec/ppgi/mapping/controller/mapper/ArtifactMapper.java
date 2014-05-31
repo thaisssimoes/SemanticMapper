@@ -22,7 +22,7 @@ public class ArtifactMapper {
 	 * @throws Exception 
 	 */	
 	public static void mapToSemType(MySynset synset) throws Exception{
-		System.out.println(synset.getWords());
+
 		//Checks if the synset exposes a Holonym pointer, 
 		//if it does then it should be mapped to Parts also
 		boolean isHolonym = 
