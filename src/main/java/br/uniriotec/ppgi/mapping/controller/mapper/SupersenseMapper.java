@@ -113,6 +113,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 23: //	noun.quantity
+					QuantityMapper.mapToSemType(ms);
 					break;
 					
 				case 24: //	noun.relation
