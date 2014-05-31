@@ -91,6 +91,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 18: //	noun.person
+					PersonMapper.mapToSemType(ms);
 					break;
 					
 				case 19: //	noun.phenomenon
