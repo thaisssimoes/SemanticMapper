@@ -35,7 +35,7 @@ import edu.mit.jwi.item.POS;
 @Table(name="synsets")
 public class MySynset {
 	@Id 
-	@Column(name = "wordnetID", nullable=false, unique=true)
+	@Column(name = "id", nullable=false, unique=true)
 	private String wordnetID;
 	@Enumerated(EnumType.STRING)
 	private POS pos;
@@ -46,12 +46,12 @@ public class MySynset {
 	private Supersense supersense;
 	@ManyToMany(cascade = { CascadeType.ALL })  
 	@JoinTable(name = "synset_has_semtype", 
-		joinColumns = { @JoinColumn(name = "wordnet_id") }, 
+		joinColumns = { @JoinColumn(name = "id_synset") }, 
 		inverseJoinColumns = { @JoinColumn(name = "id_semtype") })
 	private Set<SemanticType> semanticTypes = new HashSet<SemanticType>();
 	@ElementCollection
 	@CollectionTable(name="words", joinColumns=@JoinColumn(name="id_synset"))
-	@Column(name="words", nullable=false)
+	@Column(name="word", nullable=false)
 	private List<String> words = new ArrayList<String>();
 	
 	public MySynset(){}
