@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,7 +36,10 @@ import edu.mit.jwi.item.POS;
 @Table(name="synsets")
 public class MySynset {
 	@Id 
-	@Column(name = "id", nullable=false, unique=true)
+	@GeneratedValue
+	@Column(name = "id")
+	private int id;
+	@Column(name = "wordnetID", nullable=false, unique=true)
 	private String wordnetID;
 	@Enumerated(EnumType.STRING)
 	private POS pos;
