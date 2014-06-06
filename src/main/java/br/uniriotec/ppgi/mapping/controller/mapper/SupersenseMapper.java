@@ -31,12 +31,12 @@ public class SupersenseMapper {
 					break;
 					
 				case 4:	//noun.act
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Activity"));
 					break;
 					
 				case 5:	//noun.animal
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Animate"));
 					break;
 					
@@ -48,12 +48,12 @@ public class SupersenseMapper {
 					break;
 					
 				case 8:	//noun.body
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Parts"));
 					break;
 					
 				case 9:	//	noun.cognition
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Other"));
 					break;
 					
@@ -62,7 +62,7 @@ public class SupersenseMapper {
 					break;
 					
 				case 11: //	noun.event
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Activity"));
 					break;
 					
@@ -78,12 +78,12 @@ public class SupersenseMapper {
 					break;
 					
 				case 15: //	noun.location
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Place"));
 					break;
 					
 				case 16: //	noun.motive
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Other"));
 					break;
 					
@@ -96,17 +96,17 @@ public class SupersenseMapper {
 					break;
 					
 				case 19: //	noun.phenomenon
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Celestial & Weather"));
 					break;
 					
 				case 20: //	noun.plant
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Flora"));
 					break;
 					
 				case 21: //	noun.possession
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Other"));
 					break;
 					
@@ -121,22 +121,22 @@ public class SupersenseMapper {
 					break;
 					
 				case 25: //	noun.shape
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Variety"));
 					break;
 					
 				case 26: //	noun.state
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("States"));
 					break;
 					
 				case 27: //	noun.substance
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Environment"));
 					break;
 					
 				case 28: //	noun.time
-					ms.getSemanticType().add(
+					ms.addSemanticType(
 							SemanticTypeLoader.getInstance().getByName("Time"));
 					break;
 					

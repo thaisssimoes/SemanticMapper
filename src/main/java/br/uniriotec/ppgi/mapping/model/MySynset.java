@@ -16,9 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
@@ -48,11 +47,8 @@ public class MySynset {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_supersense", nullable = false)
 	private Supersense supersense;
-	@ManyToMany(cascade = { CascadeType.ALL })  
-	@JoinTable(name = "synset_has_semtype", 
-		joinColumns = { @JoinColumn(name = "id_synset") }, 
-		inverseJoinColumns = { @JoinColumn(name = "id_semtype") })
-	private Set<SemanticType> semanticTypes = new HashSet<SemanticType>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.synset", cascade=CascadeType.ALL)
+	private Set<MySynsetSemtype> mySynsetSemtype = new HashSet<MySynsetSemtype>();
 	@ElementCollection
 	@CollectionTable(name="words", joinColumns=@JoinColumn(name="id_synset"))
 	@Column(name="word", nullable=false)
@@ -84,17 +80,26 @@ public class MySynset {
 	public void setSupersense(Supersense supersense) {
 		this.supersense = supersense;
 	}
-	public Set<SemanticType> getSemanticType() {
-		return semanticTypes;
+	public Set<MySynsetSemtype> getMySynsetSemtype() {
+		return mySynsetSemtype;
 	}
-	public void setSemanticType(Set<SemanticType> semanticType) {
-		this.semanticTypes = semanticType;
+	public void setMySynsetSemtypee(Set<MySynsetSemtype> mySynsetSemtype) {
+		this.mySynsetSemtype = mySynsetSemtype;
 	}
 	public List<String> getWords() {
 		return words;
 	}
 	public void setWords(List<String> words) {
 		this.words = words;
+	}
+
+	//relates the synset to a SemanticType
+	public void addSemanticType(SemanticType semtype) {
+		MySynsetSemtype relation = new MySynsetSemtype();
+		relation.setMySynset(this);
+		relation.setSemantictype(semtype);
+		getMySynsetSemtype().add(relation);
+		
 	}
 	
 

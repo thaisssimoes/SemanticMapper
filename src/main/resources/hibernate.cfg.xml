@@ -31,6 +31,8 @@
 		<mapping class="br.uniriotec.ppgi.mapping.model.SemanticType" />
 		<mapping class="br.uniriotec.ppgi.mapping.model.Supersense" />
 		<mapping class="br.uniriotec.ppgi.mapping.model.MySynset" />
+		<mapping class="br.uniriotec.ppgi.mapping.model.MySynsetSemtype" />
+		<mapping class="br.uniriotec.ppgi.mapping.model.MySynsetSemtypeID" />
 		<mapping class="br.uniriotec.ppgi.mapping.model.ModifierSynset" />
 
 	</session-factory>

@@ -29,10 +29,10 @@ public class ArtifactMapper {
 				MITWordnetUtils.isHolonym(synset.getWordnetID());
 		
 		if(isHolonym){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Parts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
 		}
 		
-		synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Artefact"));
+		synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
 		
 	}
 	

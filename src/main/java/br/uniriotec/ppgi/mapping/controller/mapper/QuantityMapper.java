@@ -30,9 +30,9 @@ public class QuantityMapper {
 				ModifierSynsetLoader.getInstance().getByName("TimePeriod").getWordnetID());
 		
 		if(hasTimePeriod){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Time"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Time"));
 		}else{
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Quantity"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Quantity"));
 		}
 		
 		

@@ -34,9 +34,9 @@ public class ObjectMapper {
 				ModifierSynsetLoader.getInstance().getByName("CelestialBody").getWordnetID());
 		
 		if(hasExtraterrestrialBody || hasCelestialObject){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Celestial & Weather"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Celestial & Weather"));
 		}else{
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Environment"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Environment"));
 		}
 		
 		

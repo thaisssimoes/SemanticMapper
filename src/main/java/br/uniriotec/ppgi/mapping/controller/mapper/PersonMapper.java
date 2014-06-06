@@ -34,9 +34,9 @@ public class PersonMapper {
 				ModifierSynsetLoader.getInstance().getByName("Parent").getWordnetID());
 		
 		if(hasRelative || hasParent){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Kin"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Kin"));
 		}else{
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Rank"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Rank"));
 		}
 		
 		

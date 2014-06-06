@@ -38,15 +38,15 @@ public class FoodMapper {
 				ModifierSynsetLoader.getInstance().getByName("FoodProduct").getWordnetID());
 		
 		if(hasMeat){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Animate"));
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Parts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Animate"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
 		}else if(hasGreenGoods){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Flora"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Flora"));
 		}else if(hasFoodProduct){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Parts"));
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Artefact"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
 		}else{
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Artefact"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
 		}
 		
 		

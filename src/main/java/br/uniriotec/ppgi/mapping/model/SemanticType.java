@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import edu.mit.jwi.item.POS;
@@ -36,41 +36,51 @@ public class SemanticType {
 	private POS pos;
 	@Column(name = "definition", columnDefinition="TEXT", nullable=false)
 	private String definition;
-	@ManyToMany(mappedBy = "semanticTypes", fetch=FetchType.LAZY)
-	private Set<MySynset> synsets = new HashSet<MySynset>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.semtype")
+	private Set<MySynsetSemtype> mySynsetSemtype = new HashSet<MySynsetSemtype>(0);
 	
 	public SemanticType(){}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
-	public POS getPos() {
-		return pos;
-	}
-	public void setPos(POS pos) {
-		this.pos = pos;
-	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public POS getPos() {
+		return pos;
+	}
+
+	public void setPos(POS pos) {
+		this.pos = pos;
+	}
+
 	public String getDefinition() {
 		return definition;
 	}
+
 	public void setDefinition(String definition) {
 		this.definition = definition;
 	}
-	public Set<MySynset> getSynsets() {
-		return synsets;
+
+	public Set<MySynsetSemtype> getMySynsetSemtype() {
+		return mySynsetSemtype;
 	}
-	public void setSynsets(Set<MySynset> synsets) {
-		this.synsets = synsets;
+
+	public void setMySynsetSemtype(Set<MySynsetSemtype> mySynsetSemtype) {
+		this.mySynsetSemtype = mySynsetSemtype;
 	}
+	
 	
 	
 }

@@ -42,12 +42,12 @@ public class GroupMapper {
 				ModifierSynsetLoader.getInstance().getByName("SocialGroup").getWordnetID());
 		
 		if(hasSocialGroup){
-			synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Social Group"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Social Group"));
 		}else{
 			if(hasFlora || hasNaturalObject || hasSubstance){
-				synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Object"));
+				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Object"));
 			}else{
-				synset.getSemanticType().add(SemanticTypeLoader.getInstance().getByName("Artefact"));
+				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
 			}
 		}
 		
