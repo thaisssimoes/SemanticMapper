@@ -92,10 +92,24 @@ public class MySynset {
 	public void setWords(List<String> words) {
 		this.words = words;
 	}
-
-	//relates the synset to a SemanticType
+	
+	/**
+	 * relates the synset to a SemanticType. This method establishes a
+	 * real mapping only. For false examples use addSemanticType(SemanticType, boolean);
+	 * @param semtype
+	 */
 	public void addSemanticType(SemanticType semtype) {
+		addSemanticType(semtype, true);
+	}
+	
+	
+	/**
+	 * relates the synset to a SemanticType informing if the mapping
+	 * is a real mapping or a false example
+	 */
+	public void addSemanticType(SemanticType semtype, boolean isRealMapping) {
 		MySynsetSemtype relation = new MySynsetSemtype();
+		relation.setRealMapping(isRealMapping);
 		relation.setMySynset(this);
 		relation.setSemantictype(semtype);
 		getMySynsetSemtype().add(relation);
