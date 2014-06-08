@@ -2,6 +2,7 @@ package br.uniriotec.ppgi.mapping.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import br.uniriotec.ppgi.mapping.controller.mapper.SupersenseMapper;
+import br.uniriotec.ppgi.mapping.controller.sampler.SampleSelector;
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
 import br.uniriotec.ppgi.mapping.controller.wordnet.SynsetConverter;
 import br.uniriotec.ppgi.mapping.model.MySynset;
@@ -55,13 +57,20 @@ public class Runner {
 			
 			
 			
-			/* *******************************************************
-			 * 					Select Samples						**
-			 * *******************************************************/
-			logger.info("-- Randomically choosing sample synsets.");
 			
-			//Select sample
-			//TODO define how samples will be selected. for now use everything
+			
+			
+			
+			
+			/* *******************************************************
+			 * 			Select Samples for positive examples		**
+			 * *******************************************************/
+			logger.info("-- Calculating Samples sizes.");
+			Map<Integer, Integer> samplesSizes = SampleSelector.calculateSupersenseSamples(synsetsPerSupersenses);
+			
+			
+			logger.info("-- Randomically choosing sample synsets.");
+			SampleSelector.selectSampleSynsets(synsetsPerSupersenses, samplesSizes);
 			
 			//Convert samples to a list of MySynset objects
 			List<MySynset> synsetSamples = 
@@ -79,6 +88,9 @@ public class Runner {
 			
 			//Map synsets to Semantic Types 
 			SupersenseMapper.mapSupersensestoSemanticTypes(synsetSamples);
+			
+			
+			
 			
 			
 			

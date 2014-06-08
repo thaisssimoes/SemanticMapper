@@ -72,7 +72,8 @@ public class MITWordnetUtils {
 	 * @throws IOException
 	 * @throws WordnetHelperException
 	 */
-	public static Map<Integer, HashSet<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) throws IOException, WordnetHelperException{
+	public static Map<Integer, HashSet<ISynset>> listAllSynsets(POS pos, IPointer pointer, boolean noPointerRelation) 
+			throws IOException, WordnetHelperException{
 		
 		/* *********************************************************************
 		 * Checks if the given POS is NULL. if affirmative raises an exception.

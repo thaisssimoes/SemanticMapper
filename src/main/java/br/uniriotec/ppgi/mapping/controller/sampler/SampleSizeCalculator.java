@@ -61,7 +61,7 @@ public class SampleSizeCalculator {
 	 * @return the sample size needed for a specific population
 	 */
 	public static double correctToFinitePopulation(double rawSampleSize, int population){
-		return (int)(rawSampleSize / (1 + ((rawSampleSize - 1)/population)));
+		return (rawSampleSize / (1 + ((rawSampleSize - 1)/population)));
 	}
 	
 }

@@ -88,7 +88,7 @@ The evaluation can be conducted through another application, a PHP webapp also a
 System Requirements
 -------
 
-You should be able to have the system up and running, along with your Mysql database, on any operational system with at least 4GB of RAM and 2.0GHz processor. A big part of the application consists of I/O, so an SSD drive is welcome.
+You should be able to have the system up and running, along with your Mysql database, on any operational system with at least 4GB of RAM and 2.0GHz processor. A big part of the application consists of I/O, so a SSD drive is welcome.
 
 
 License
