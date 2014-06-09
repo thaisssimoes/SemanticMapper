@@ -21,7 +21,7 @@ public class QuantityMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 		
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
@@ -30,9 +30,9 @@ public class QuantityMapper {
 				ModifierSynsetLoader.getInstance().getByName("TimePeriod").getWordnetID());
 		
 		if(hasTimePeriod){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Time"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Time"),realMapping);
 		}else{
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Quantity"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Quantity"),realMapping);
 		}
 		
 		

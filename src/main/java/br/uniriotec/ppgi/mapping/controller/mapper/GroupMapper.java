@@ -21,7 +21,7 @@ public class GroupMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
@@ -41,13 +41,14 @@ public class GroupMapper {
 				MITWordnetUtils.hasModifierSynset(synset.getWordnetID(), 
 				ModifierSynsetLoader.getInstance().getByName("SocialGroup").getWordnetID());
 		
+		
 		if(hasSocialGroup){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Social Group"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Social Group"),realMapping);
 		}else{
 			if(hasFlora || hasNaturalObject || hasSubstance){
-				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Object"));
+				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Environment"),realMapping);
 			}else{
-				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 			}
 		}
 		

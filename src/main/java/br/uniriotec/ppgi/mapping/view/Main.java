@@ -3,7 +3,7 @@ package br.uniriotec.ppgi.mapping.view;
 import java.io.IOException;
 import java.util.Scanner;
 
-import br.uniriotec.ppgi.mapping.controller.Runner;
+import br.uniriotec.ppgi.mapping.controller.EvaluationRunner;
 
 
 /**
@@ -46,7 +46,7 @@ public class Main {
 		if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")){
 			
 			System.out.println("*** Starting Supersense Mapper ***");
-			Runner runner = new Runner();
+			EvaluationRunner runner = new EvaluationRunner();
 			runner.run();
 			System.out.println("*** Finishing Supersense Mapper ***");
 			

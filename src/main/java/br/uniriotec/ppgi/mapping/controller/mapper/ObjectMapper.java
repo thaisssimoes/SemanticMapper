@@ -21,7 +21,7 @@ public class ObjectMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 		
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
@@ -34,9 +34,9 @@ public class ObjectMapper {
 				ModifierSynsetLoader.getInstance().getByName("CelestialBody").getWordnetID());
 		
 		if(hasExtraterrestrialBody || hasCelestialObject){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Celestial & Weather"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Celestial & Weather"),realMapping);
 		}else{
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Environment"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Environment"),realMapping);
 		}
 		
 		

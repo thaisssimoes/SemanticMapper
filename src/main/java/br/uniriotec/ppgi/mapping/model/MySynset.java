@@ -38,7 +38,7 @@ public class MySynset {
 	@GeneratedValue
 	@Column(name = "id")
 	private int id;
-	@Column(name = "wordnetID", nullable=false, unique=true)
+	@Column(name = "wordnetID", nullable=false)
 	private String wordnetID;
 	@Enumerated(EnumType.STRING)
 	private POS pos;
@@ -108,6 +108,10 @@ public class MySynset {
 	 * is a real mapping or a false example
 	 */
 	public void addSemanticType(SemanticType semtype, boolean isRealMapping) {
+		if(semtype == null){
+			System.out.println(this.getSupersense().getId() + " | "+this.getSupersense().getName());
+			System.exit(1);
+			}
 		MySynsetSemtype relation = new MySynsetSemtype();
 		relation.setRealMapping(isRealMapping);
 		relation.setMySynset(this);

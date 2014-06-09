@@ -27,7 +27,7 @@ public class SampleSelector {
 	 * @return a map describing how many samples should be used for each supersense
 	 * @throws Exception
 	 */
-	public static Map<Integer, Integer> calculateSupersenseSamples(
+	public static Map<Integer, Integer> calculateSupersenseSamplesSizes(
 			Map<Integer, HashSet<ISynset>> synsetsPerSupersenses) throws Exception{
 		
 		/*
@@ -50,7 +50,7 @@ public class SampleSelector {
 									e.getValue().size());
 			
 			//debug log
-			logger.debug("Sample size for "+ LexFile.getLexicalFile(e.getKey())+": "
+			logger.debug("Positive Sample size for "+ LexFile.getLexicalFile(e.getKey())+": "
 					+Math.ceil(ssCorrected));
 			
 			
@@ -121,6 +121,36 @@ public class SampleSelector {
 
 		return sample;
 		
+	}
+
+
+
+
+	/**
+	 * Calculates the sample size of negative examples that should be
+	 * used when evaluating the mappings.
+	 * 
+	 * OBS: this is a further step that is conducted when taking
+	 * into account the evaluation of the mapping rules
+	 *  
+	 * @param positiveSamplesSizes
+	 * @return
+	 */
+	public static Map<Integer, Integer> calculateNegativeSamplesSizes(
+			Map<Integer, Integer> positiveSamplesSizes) {
+		
+		Map<Integer, Integer> negativeSamplesSizes = new HashMap<Integer,Integer>();
+		
+		for(Entry<Integer,Integer> e : positiveSamplesSizes.entrySet()){
+			int sampleSize = (int) Math.ceil(e.getValue()/10.0);
+			negativeSamplesSizes.put(e.getKey(), sampleSize);
+			
+			//debug log
+			logger.debug("Negative Sample size for "+ LexFile.getLexicalFile(e.getKey())+": "
+					+Math.ceil(sampleSize));
+		}
+		
+		return negativeSamplesSizes;
 	}
 	
 	

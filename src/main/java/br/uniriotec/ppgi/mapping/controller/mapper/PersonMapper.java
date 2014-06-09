@@ -21,7 +21,7 @@ public class PersonMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 		
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
@@ -34,9 +34,9 @@ public class PersonMapper {
 				ModifierSynsetLoader.getInstance().getByName("Parent").getWordnetID());
 		
 		if(hasRelative || hasParent){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Kin"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Kin"),realMapping);
 		}else{
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Rank"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Rank"),realMapping);
 		}
 		
 		

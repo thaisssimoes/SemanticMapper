@@ -25,7 +25,7 @@ public class CommunicationMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 		
 		boolean hasSpeechAct = 
 				MITWordnetUtils.hasModifierSynset(synset.getWordnetID(), 
@@ -41,33 +41,33 @@ public class CommunicationMapper {
 		
 		//If has speech act on the hypernym tree...
 		if(hasSpeechAct){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Speech Acts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Speech Acts"),realMapping);
 		
 		//If has linguistic synsets on hypernym tree...
 		}else if(hasLinguisticUnit || hasLinguisticCommunication){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Language"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Language"),realMapping);
 		
 		}else{
 			//If it is note derivationally related, then it is simply an artifact
 			if(MITWordnetUtils.isDerivationallyRelated(synset.getWordnetID()) == false){
-				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+				synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 				
 			//If it DOES relationally derives from a verb (is a Deverbal Noun)...
 			}else{
 				
 				//If it is homograph to the verb it derives from then it is an ACTIVITY
 				if(MITWordnetUtils.isHomographToVerb(synset.getWordnetID())){
-					synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Activity"));
+					synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Activity"),realMapping);
 	
 				//check for agentive or passive
 				}else{
 					if(endsWithSuffix(agentiveSuffixes, synset)){
-						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 					}else if(endsWithSuffix(eventiveSuffixes,synset)){
-						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Activity"));
+						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Activity"),realMapping);
 					}else{
 						//Not agent neither event... puts into Other (must be rethinken).
-						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Other"));
+						synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Other"),realMapping);
 					}
 				}
 			}

@@ -21,7 +21,7 @@ public class FoodMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 		
 		//Traverse Synset's hypernym tree looking for 
 		//specific synsets.
@@ -38,15 +38,15 @@ public class FoodMapper {
 				ModifierSynsetLoader.getInstance().getByName("FoodProduct").getWordnetID());
 		
 		if(hasMeat){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Animate"));
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Animate"),realMapping);
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"),realMapping);
 		}else if(hasGreenGoods){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Flora"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Flora"),realMapping);
 		}else if(hasFoodProduct){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"),realMapping);
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 		}else{
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 		}
 		
 		

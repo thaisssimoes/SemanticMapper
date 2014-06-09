@@ -21,7 +21,7 @@ public class ArtifactMapper {
 	 * @param synset
 	 * @throws Exception 
 	 */	
-	public static void mapToSemType(MySynset synset) throws Exception{
+	public static void mapToSemType(MySynset synset, boolean realMapping) throws Exception{
 
 		//Checks if the synset exposes a Holonym pointer, 
 		//if it does then it should be mapped to Parts also
@@ -29,10 +29,10 @@ public class ArtifactMapper {
 				MITWordnetUtils.isHolonym(synset.getWordnetID());
 		
 		if(isHolonym){
-			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"));
+			synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Parts"),realMapping);
 		}
 		
-		synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"));
+		synset.addSemanticType(SemanticTypeLoader.getInstance().getByName("Artefact"),realMapping);
 		
 	}
 	
