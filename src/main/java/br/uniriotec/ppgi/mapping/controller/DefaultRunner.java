@@ -2,7 +2,6 @@ package br.uniriotec.ppgi.mapping.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import br.uniriotec.ppgi.mapping.controller.mapper.SupersenseMapper;
-import br.uniriotec.ppgi.mapping.controller.sampler.SampleSelector;
 import br.uniriotec.ppgi.mapping.controller.wordnet.MITWordnetUtils;
 import br.uniriotec.ppgi.mapping.controller.wordnet.SynsetConverter;
 import br.uniriotec.ppgi.mapping.model.MySynset;
@@ -29,11 +27,11 @@ import edu.mit.jwi.item.Pointer;
  * @author felipe
  *
  */
-public class EvaluationRunner {
-	private static Logger logger = Logger.getLogger(EvaluationRunner.class);
+public class DefaultRunner {
+	private static Logger logger = Logger.getLogger(DefaultRunner.class);
 	
 	/**
-	 * Runs the application in evaluation mode. It reads all synsets, select samples for 
+	 * Runs the application in default mode. It reads all synsets, select samples for 
 	 * each supersense, conducts necessary convertions and mappings to 
 	 * Semantic Types, persinsting the results in the Database.
 	 */
@@ -62,37 +60,15 @@ public class EvaluationRunner {
 			
 			
 			/* *******************************************************
-			 * 		Select Samples for positive and negative 		**
-			 * 	examples											**
+			 * 		Instead of selecting samples simply uses all 	**
+			 * 	synsets												**
 			 * *******************************************************/
-			logger.info("-- Calculating Samples sizes.");
-			Map<Integer, Integer> positiveSamplesSizes = 
-					SampleSelector.calculateSupersenseSamplesSizes(synsetsPerSupersenses);
-			
-			Map<Integer, Integer> negativeSamplesSizes = 
-					SampleSelector.calculateNegativeSamplesSizes(positiveSamplesSizes);
-			
-
-			
-			//instatiate a new map of "synset per supersense" to be used as negative samples
-			Map<Integer, HashSet<ISynset>> negativeSamples = new HashMap<Integer, HashSet<ISynset>>();
-			negativeSamples.putAll(synsetsPerSupersenses);
-			
-			logger.info("-- Randomically choosing sample synsets.");
-			SampleSelector.selectSampleSynsets(synsetsPerSupersenses, positiveSamplesSizes);
-			SampleSelector.selectSampleSynsets(negativeSamples, negativeSamplesSizes);
 			
 			
-			
-			
-			//Convert samples to a lists of MySynset objects
+			//Convert synsets to a lists of MySynset objects
 			List<MySynset> positiveSynsetSamples = 
 					SynsetConverter.convertSupersenseMap(synsetsPerSupersenses);
-			
-			List<MySynset> negativeSynsetSamples = 
-					SynsetConverter.convertSupersenseMap(negativeSamples);
-			
-			
+		
 			
 			
 			
@@ -110,9 +86,6 @@ public class EvaluationRunner {
 			//Map synsets to Semantic Types correctly
 			SupersenseMapper.mapSupersensesToSemanticTypes(positiveSynsetSamples);
 			
-			//Map synsets to Semantic Types wrongly (creating false examples)
-			SupersenseMapper.mapSupersensesToSemanticTypes(negativeSynsetSamples, false);
-			
 			
 			
 			
@@ -128,7 +101,6 @@ public class EvaluationRunner {
 			try{
 				IMySynsetDAO dao = DAOFactory.getInstance().getMySynsetDAO();
 				dao.save(positiveSynsetSamples);
-				dao.save(negativeSynsetSamples);
 			}catch(SQLException e){
 				//If exception thrown, abort application
 				logger.error("Error while persisting resulting mappings.",e);

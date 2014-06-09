@@ -76,6 +76,15 @@ Once the environment is prepared the tool can be run simply by calling the appli
 java -jar SupersenseMapping.jar
 ```
 
+Optionally the user may add the `-e` parameter when invoking the JAR to activate **Evaluation Mode**. This way, instead of applying the mapping rule to all synsets (noun, leaf synsets) only samples for each supersense are mapped, along with some intentional wrong mappings for additional synsets, that can be used as control group when evaluating the mapping rules. To this mode simple use the following command:
+
+```sh
+java -jar SupersenseMapping.jar -e
+```
+
+When evaluation mode is activted the application loads additional information from the database prior running the mapping, such as z-value for cnofidence level and confidence interval, which are used when determining the sample sizes for each supersense mapping evaluation.
+ 
+
 
 After Running
 --------------
