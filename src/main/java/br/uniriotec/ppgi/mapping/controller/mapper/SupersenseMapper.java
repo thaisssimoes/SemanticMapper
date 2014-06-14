@@ -88,6 +88,8 @@ public class SupersenseMapper {
 					break;
 					
 				case 7:	//noun.attribute
+					ms.addSemanticType(
+							SemanticTypeLoader.getInstance().getByName("States & Properties"),positiveExamples);
 					break;
 					
 				case 8:	//noun.body
@@ -110,6 +112,8 @@ public class SupersenseMapper {
 					break;
 					
 				case 12: //	noun.feeling
+					ms.addSemanticType(
+							SemanticTypeLoader.getInstance().getByName("Other"),positiveExamples);
 					break;
 					
 				case 13: //	noun.food
@@ -158,6 +162,8 @@ public class SupersenseMapper {
 					break;
 					
 				case 22: //	noun.process
+					ms.addSemanticType(
+							SemanticTypeLoader.getInstance().getByName("Activity"),positiveExamples);
 					break;
 					
 				case 23: //	noun.quantity
@@ -165,6 +171,8 @@ public class SupersenseMapper {
 					break;
 					
 				case 24: //	noun.relation
+					ms.addSemanticType(
+							SemanticTypeLoader.getInstance().getByName("Other"),positiveExamples);
 					break;
 					
 				case 25: //	noun.shape
@@ -174,7 +182,7 @@ public class SupersenseMapper {
 					
 				case 26: //	noun.state
 					ms.addSemanticType(
-							SemanticTypeLoader.getInstance().getByName("States"),positiveExamples);
+							SemanticTypeLoader.getInstance().getByName("States & Properties"),positiveExamples);
 					break;
 					
 				case 27: //	noun.substance
