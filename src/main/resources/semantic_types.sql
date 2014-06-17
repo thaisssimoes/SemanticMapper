@@ -15,6 +15,6 @@ INSERT INTO semantic_types(id,name,pos,definition) VALUES ("14","Quantity","NOUN
 INSERT INTO semantic_types(id,name,pos,definition) VALUES ("15","Variety","NOUN","Metaclass which metaproperties determine classes of concepts referring to a variety of types and shapes, including geometric shapes.");
 INSERT INTO semantic_types(id,name,pos,definition) VALUES ("16","Language","NOUN","Metaclass which metaproperties determine classes referring to linguistic elementssuch as word, sentence, phrase, nouns, etc.");
 INSERT INTO semantic_types(id,name,pos,definition) VALUES ("17","Other","NOUN","Metaclass which metaproperties determine classes of nouns referring to abstract concepts such as idea, unit, method, result, truth, etc.");
-INSERT INTO semantic_types(id,name,pos,definition) VALUES ("18","Activity","NOUN","Metaclass determining activities; They are abstract references to actions wich signs derive from verbs.");
+INSERT INTO semantic_types(id,name,pos,definition) VALUES ("18","Activity","NOUN","Metaclass determining activities; They are abstract references to actions which signs derive from verbs.");
 INSERT INTO semantic_types(id,name,pos,definition) VALUES ("19","States & Properties","NOUN","Metaclass which metaproperties determine phisical or mental states of individuals, or even individual properties such as pleasure, strength, pain, sorrow, etc.");
 INSERT INTO semantic_types(id,name,pos,definition) VALUES ("20","Speech Acts","NOUN","Metaclass which metaproperties determine speech acts, such as a command, question, talk, promisse, etc.");
