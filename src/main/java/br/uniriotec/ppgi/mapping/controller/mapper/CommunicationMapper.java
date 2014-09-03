@@ -15,7 +15,7 @@ import br.uniriotec.ppgi.mapping.model.MySynset;
 public class CommunicationMapper {
 	
 	private static final String[] agentiveSuffixes = {"ee","er","or","ist","ess"};
-	private static final String[] eventiveSuffixes = {"tion","sion","ance","ence"};
+	private static final String[] eventiveSuffixes = {"tion","sion","ance","ence","ent"};
 	
 	
 	/**
