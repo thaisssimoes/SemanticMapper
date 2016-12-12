@@ -37,13 +37,11 @@ This mapping tool is being developed under as a part of the research I'm current
 Preparing the environment
 --------------------------
 
-The application uses a local installation of [Princeton WordNet](http://wordnet.princeton.edu/), and does it through [MIT JWI](http://projects.csail.mit.edu/jwi/) API which requires  a environment variable (WNHOME) to be set.
+The application uses a local installation of [Princeton WordNet](http://wordnet.princeton.edu/),  (**version 3.1**) and does it through [MIT JWI](http://projects.csail.mit.edu/jwi/) API which requires  a environment variable (WNHOME) to be set.
 
-To install WordNet you can simply refer to the website project and download the version that best fits your Operational System. remember to set the WNHOME enviroment variable to point at WordNet's home folder. if you are under Linux/MacOSX using verson 3.0 that would probably be `/usr/local/WordNet-3.0`.
+To install WordNet you can simply refer to the website project and download the version that best fits your Operational System. Remember to set the WNHOME environment variable to point at WordNet's home folder. For orientations on how to install WordNet 3.1, refer to the project's official website.
 
-Once the repository has been cloned, import it into [Eclipse IDE](https://www.eclipse.org/) and don't forget to run a `maven update`, since [Maven](https://maven.apache.org/) is used to manage all the dependencies.
-
-You must also have a MySQL database installed and running. To run the tool the user must configure the resource file **hibernate.cfg.xml** under `src/main/resources` folder, indicating the URL, user and password for the MySQL database where the output data will be saved. The application will generate the schema itself on first run. 
+You must also have a MySQL database installed and running. To run the tool the user must configure the resource file **hibernate.cfg.xml** under `src/main/resources` folder, indicating the URL, user and password for the MySQL database where the output data will be saved. The application will generate the schema itself on first run.
 
 **Observation**: If any warnings concerning foreign key show up, ignore them, starting from the second run they won't happen again (For some reason Hibernate can't decide the right order for creating tables and respect the foreign keys).
 
@@ -62,28 +60,33 @@ You must also have a MySQL database installed and running. To run the tool the u
 
 ```
 
-The database schema DDL script is provided on the repository root and should be used to create the database prior running the system, since even though Hibernate is able to generate the schema, some initial data must be persisted before the tool can be used.
+The schema must have been created prior to the execution of the application. Don't worry about creating any tables, the application will create them in the first run. It will also add some information necessary for running the application itself. If you wish to check or change any of these data, refer to the `.sql` scripts inside `src/main/resources/` folder.
 
 
+[Maven](https://maven.apache.org/) is used to manage all projects dependencies and to build it. So once the repository has been cloned, running `maven clean package` should import all necessary dependencies and generate an executable JAR file under the `target/` folder. If you wish to inspect the code, import it into [Eclipse IDE](https://www.eclipse.org/) and don't forget to run a `maven update`.
 
+**Observation**: If you need help with preparing your environmen from scratch (installing a Unix OS, installing Java, WordNet and MySQL), check the `configuration-help.md` file available in the root folder.
 
 Running the application
 ------------------------
 
-Once the environment is prepared the tool can be run simply by calling the application Main class, under `br.uniriotec.ppgi.mapping.view.Main`. It is recommended to export a Runnable JAR from eclipse setting the Main class as the responsible for running the application. Once the jar is generated, it can be simply called by the command line:
+Once the environment is prepared and the project has been packaged into an executable JAR, the tool can be run simply by calling:
 
 ```sh
-java -jar SupersenseMapping.jar
+java -jar target/SemanticMapper-1.0.0-SNAPSHOT.jar
 ```
+
+Use the flag `-h` to see specific informations on running options. Alternatively the application can be run directly from Eclipse by executing its Main class, under `br.uniriotec.ppgi.mapping.view.Main`.
+
 
 Optionally the user may add the `-e` parameter when invoking the JAR to activate **Evaluation Mode**. This way, instead of applying the mapping rule to all synsets (noun, leaf synsets) only samples for each supersense are mapped, along with some intentional wrong mappings for additional synsets, that can be used as control group when evaluating the mapping rules. To this mode simple use the following command:
 
 ```sh
-java -jar SupersenseMapping.jar -e
+java -jar target/SemanticMapper-1.0.0-SNAPSHOT.jar -e
 ```
 
 When evaluation mode is activted the application loads additional information from the database prior running the mapping, such as z-value for cnofidence level and confidence interval, which are used when determining the sample sizes for each supersense mapping evaluation.
- 
+
 
 
 After Running
@@ -97,7 +100,7 @@ The evaluation can be conducted through another application, a PHP webapp also a
 System Requirements
 -------
 
-You should be able to have the system up and running, along with your Mysql database, on any operational system with at least 4GB of RAM and 2.0GHz processor. A big part of the application consists of I/O, so an SSD drive is welcome.
+You should be able to have the system up and running, along with your MySQL database, on any operational system with at least 4GB of RAM and 2.0GHz processor. A big part of the application consists of I/O, so an SSD drive is welcome. We recommend using Linux or MacOS, since WordNet 3.1 is not yet available for Windows.
 
 
 License
